@@ -17,5 +17,6 @@ namespace Project2.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+        public DbSet<Film> Films { get; set; }
     }
 }
