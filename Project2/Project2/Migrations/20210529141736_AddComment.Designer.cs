@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project2.Data;
 
 namespace Project2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210529141736_AddComment")]
+    partial class AddComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -329,9 +331,6 @@ namespace Project2.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("FilmId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Important")
                         .HasColumnType("bit");
 
@@ -339,8 +338,6 @@ namespace Project2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FilmId");
 
                     b.ToTable("Comments");
                 });
@@ -431,15 +428,6 @@ namespace Project2.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Project2.Models.Comment", b =>
-                {
-                    b.HasOne("Project2.Models.Film", "Film")
-                        .WithMany()
-                        .HasForeignKey("FilmId");
-
-                    b.Navigation("Film");
                 });
 #pragma warning restore 612, 618
         }
