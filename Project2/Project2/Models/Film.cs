@@ -22,5 +22,6 @@ namespace Project2.Models
         public int Rating { get; set; }
         [Required]
         public string Watched { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

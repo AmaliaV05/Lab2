@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project2.Data;
 
 namespace Project2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210529143857_AddCommentValidation")]
+    partial class AddCommentValidation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -437,15 +439,10 @@ namespace Project2.Migrations
             modelBuilder.Entity("Project2.Models.Comment", b =>
                 {
                     b.HasOne("Project2.Models.Film", "Film")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("FilmId");
 
                     b.Navigation("Film");
-                });
-
-            modelBuilder.Entity("Project2.Models.Film", b =>
-                {
-                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

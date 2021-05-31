@@ -1,22 +1,20 @@
-﻿using System;
+﻿using Project2.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Project2.Models
+namespace Project2.ViewModels
 {
-    public class Comment
+    public class CommentViewModel
     {
         public long Id { get; set; }
-        [Required]
         public string Text { get; set; }
-        [Required]
         public bool Important { get; set; }
         public Film Film { get; set; }
 
-        public Comment()
-        { 
+        public CommentViewModel()
+        {
         }
     }
 }
