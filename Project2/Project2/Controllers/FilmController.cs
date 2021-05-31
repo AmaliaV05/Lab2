@@ -25,6 +25,10 @@ namespace Project2.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Get all films
+        /// </summary>
+        /// <returns>Returns all films</returns>
         // GET: api/Film
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Film>>> GetFilms()
@@ -33,50 +37,54 @@ namespace Project2.Controllers
         }
 
         /// <summary>
-        /// Find a film by id
+        /// Get film by id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>Return the film by given id</returns>
-
+        /// <returns>Returns film by id</returns>
         // GET: api/Film/5
         [HttpGet("{id}")]
         public async Task<ActionResult<FilmViewModel>> GetFilm(int id)
         {
-            var film = await _context.Films.FindAsync(id);
-
-            var filmViewModel = _mapper.Map<FilmViewModel>(film);
+            var film = await _context.Films.FindAsync(id);            
 
             if (film == null)
             {
                 return NotFound();
             }
 
+            var filmViewModel = _mapper.Map<FilmViewModel>(film);
+
             return filmViewModel;
         }
 
         /// <summary>
-        /// Filter films by added date
+        /// Gets all films between added dates
         /// </summary>
-        /// <param name="startYear"></param>
-        /// <param name="endYear"></param>
-        /// <returns>Returns films in a range of dates and in descending order by year of release</returns>
-        //GET: api/Film/filter/{range}
+        /// <param name="firstDate"></param>
+        /// <param name="lastDate"></param>
+        /// <returns>Returns all films between two added dates if they are given, else returns all films</returns>
+        // GET: api/Film/filter/{firstDate, lastDate}
         [HttpGet]
-        [Route("filter/{range}")]
-        public ActionResult<IEnumerable<FilmViewModel>> FilterFilms(DateTime startYear, DateTime endYear)
-        {            
+        [Route("filter/{firstDate, lastDate}")]
+        public ActionResult<IEnumerable<FilmViewModel>> FilterFilms(DateTime? firstDate, DateTime? lastDate)
+        {
+            var filmViewModelList = _context.Films.Select(film => _mapper.Map<FilmViewModel>(film)).ToList();
+            if(firstDate == null || lastDate == null)
+            {
+                return filmViewModelList;
+            }
             return _context.Films.Select(film => _mapper.Map<FilmViewModel>(film))
-                .Where(film => film.DateAdded >= startYear && film.DateAdded<= endYear)
-                .OrderByDescending(film => film.YearOfRelease)
-                .ToList();
+                                  .Where(film => film.DateAdded >= firstDate && film.DateAdded <= lastDate)
+                                  .OrderByDescending(film => film.YearOfRelease)
+                                  .ToList();
         }
 
         /// <summary>
-        /// Update film by id
+        /// Update a film by id
         /// </summary>
         /// <param name="id"></param>
         /// <param name="filmViewModel"></param>
-        /// <returns></returns>
+        /// <returns>Does not show any return value</returns>
         // PUT: api/Film/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -111,14 +119,14 @@ namespace Project2.Controllers
         }
 
         /// <summary>
-        /// Create new film entry
+        /// Create a new film entry
         /// </summary>
         /// <param name="filmViewModel"></param>
-        /// <returns>New film Entry</returns>
+        /// <returns>Returns the new film entry</returns>
         // POST: api/Film
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<FilmViewModel>> PostFilm(FilmViewModel filmViewModel)
+        public async Task<ActionResult<Film>> PostFilm(FilmViewModel filmViewModel)
         {
             var film = _mapper.Map<Film>(filmViewModel);
             _context.Films.Add(film);
@@ -128,7 +136,7 @@ namespace Project2.Controllers
         }
 
         /// <summary>
-        /// Delete film by id
+        /// Delete a film by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

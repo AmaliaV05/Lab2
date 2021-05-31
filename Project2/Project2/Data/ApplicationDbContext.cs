@@ -16,8 +16,7 @@ namespace Project2.Data
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
-        }
+        }        
         public DbSet<Film> Films { get; set; }
-        public DbSet<Comment> Comments { get; set; }
     }
 }

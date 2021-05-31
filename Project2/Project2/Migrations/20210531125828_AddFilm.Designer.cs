@@ -10,8 +10,8 @@ using Project2.Data;
 namespace Project2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210529142044_UpdateComment")]
-    partial class UpdateComment
+    [Migration("20210531125828_AddFilm")]
+    partial class AddFilm
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -324,29 +324,6 @@ namespace Project2.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Project2.Models.Comment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("FilmId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Important")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FilmId");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("Project2.Models.Film", b =>
                 {
                     b.Property<int>("Id")
@@ -358,22 +335,18 @@ namespace Project2.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Director")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Duration")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Watched")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("YearOfRelease")
@@ -433,15 +406,6 @@ namespace Project2.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Project2.Models.Comment", b =>
-                {
-                    b.HasOne("Project2.Models.Film", "Film")
-                        .WithMany()
-                        .HasForeignKey("FilmId");
-
-                    b.Navigation("Film");
                 });
 #pragma warning restore 612, 618
         }

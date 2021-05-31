@@ -14,6 +14,7 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { FilmsComponent } from './films/films.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

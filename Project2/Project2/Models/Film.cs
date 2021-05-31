@@ -18,10 +18,9 @@ namespace Project2.Models
         [Required]
         public string Director { get; set; }
         public DateTime DateAdded { get; set; }
-        [Range(1,10)]
+        [Range(1, 10)]
         public int Rating { get; set; }
         [Required]
         public string Watched { get; set; }
-        public List<Comment> Comments { get; set; }
     }
 }

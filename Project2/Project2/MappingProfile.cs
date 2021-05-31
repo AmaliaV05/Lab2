@@ -13,7 +13,6 @@ namespace Project2
         public MappingProfile()
         {
             CreateMap<Film, FilmViewModel>().ReverseMap();
-
         }
     }
 }

@@ -10,8 +10,8 @@ using Project2.Data;
 namespace Project2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210529143857_AddCommentValidation")]
-    partial class AddCommentValidation
+    [Migration("20210531130246_AddFilmValidation")]
+    partial class AddFilmValidation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -324,30 +324,6 @@ namespace Project2.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("Project2.Models.Comment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("FilmId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Important")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FilmId");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("Project2.Models.Film", b =>
                 {
                     b.Property<int>("Id")
@@ -434,15 +410,6 @@ namespace Project2.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Project2.Models.Comment", b =>
-                {
-                    b.HasOne("Project2.Models.Film", "Film")
-                        .WithMany()
-                        .HasForeignKey("FilmId");
-
-                    b.Navigation("Film");
                 });
 #pragma warning restore 612, 618
         }
