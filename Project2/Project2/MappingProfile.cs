@@ -13,6 +13,10 @@ namespace Project2
         public MappingProfile()
         {
             CreateMap<Film, FilmViewModel>().ReverseMap();
+
+            CreateMap<Comment, CommentViewModel>().ReverseMap();
+
+            CreateMap<Film, FilmWithCommentViewModel>().ReverseMap();
         }
     }
 }

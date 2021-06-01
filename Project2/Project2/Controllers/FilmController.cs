@@ -183,13 +183,24 @@ namespace Project2.Controllers
         [HttpPost("{id}/Comments")]
         public IActionResult PostCommentForFilm(int id, Comment comment)
         {
-            comment.Film = _context.Films.Find(id);
+            var film = _context.Films.Where(p => p.Id == id)
+                                    .Include(p => p.Comments)
+                                    .FirstOrDefault();
+            if(film == null)
+            {
+                return NotFound();
+            }
+            film.Comments.Add(comment);
+            _context.Entry(film).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            /*comment.Film = _context.Films.Find(id);
             if(comment.Film == null)
             {
                 return NotFound();
             }
             _context.Comments.Add(comment);
-            _context.SaveChanges();
+            _context.SaveChanges();*/
             return Ok();
         }
 
