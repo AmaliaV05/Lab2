@@ -9,6 +9,7 @@ namespace Project2.ViewModels
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string Description { get; set; }
         public enum Genre { Action, Comedy, Horror, Thriller }
         public string Duration { get; set; }
         public int YearOfRelease { get; set; }

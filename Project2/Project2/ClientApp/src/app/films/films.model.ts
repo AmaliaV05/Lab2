@@ -1,11 +1,19 @@
 export class Film {
   id: number;
   title: string;
-  genre: string;
+  description: string;
+  genre: Genre;
   duration: string;
   yearOfRelease: number;
   director: string;
   dateAdded: string;
   rating: number;
   watched: string;
+}
+
+export enum Genre {
+  Action,
+  Comedy,
+  Horror,
+  Thriller
 }

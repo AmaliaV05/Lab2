@@ -1,17 +1,30 @@
-﻿using System;
+﻿using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Project2.Models
 {
+    public enum Genre {
+        Action = 1,
+        Comedy = 2,
+        Horror = 3,
+        Thriller = 4
+    }
+
     public class Film
     {
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
-        public enum Genre { Action, Comedy, Horror, Thriller }
+        [Required]
+        public string Description { get; set; }
+        //[JsonConverter(typeof(StringEnumConverter))]
+        [Required]
+        public Genre Genre { get; set; }
         [Required]
         public string Duration { get; set; }
         public int YearOfRelease { get; set; }
@@ -22,5 +35,10 @@ namespace Project2.Models
         public int Rating { get; set; }
         [Required]
         public string Watched { get; set; }
+
+        public Film()
+        {
+
+        }
     }
 }
