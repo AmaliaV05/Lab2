@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Project2.Data;
 using Project2.Models;
 using Project2.ViewModels;
@@ -18,11 +19,13 @@ namespace Project2.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly ILogger<FilmController> _logger;
 
-        public FilmController(ApplicationDbContext context, IMapper mapper)
+        public FilmController(ApplicationDbContext context, IMapper mapper, ILogger<FilmController> logger)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
 
         /// <summary>
@@ -45,7 +48,7 @@ namespace Project2.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<FilmViewModel>> GetFilm(int id)
         {
-            var film = await _context.Films.FindAsync(id);            
+            var film = await _context.Films.FindAsync(id);
 
             if (film == null)
             {
@@ -55,6 +58,28 @@ namespace Project2.Controllers
             var filmViewModel = _mapper.Map<FilmViewModel>(film);
 
             return filmViewModel;
+        }
+
+        /// <summary>
+        /// Get all comments from a film by film id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Returs a list of comments</returns>
+        // GET: api/Film/5/Comment
+        [HttpGet("{id}/Comments")]
+        public ActionResult<IEnumerable<Object>> GetCommentsForProduct(int id)
+        {
+            var query = _context.Comments.Where(c => c.Film.Id == id)
+                .Include(c => c.Film)
+                .Select(c => new
+                {
+                    Film = c.Film.Title,
+                    Comment = c.Text
+                });
+            
+            _logger.LogInformation(query.ToQueryString());
+
+            return query.ToList();
         }
 
         /// <summary>
@@ -69,7 +94,7 @@ namespace Project2.Controllers
         public ActionResult<IEnumerable<FilmViewModel>> FilterFilms(DateTime? firstDate, DateTime? lastDate)
         {
             var filmViewModelList = _context.Films.Select(film => _mapper.Map<FilmViewModel>(film)).ToList();
-            if(firstDate == null || lastDate == null)
+            if (firstDate == null || lastDate == null)
             {
                 return filmViewModelList;
             }
@@ -136,6 +161,26 @@ namespace Project2.Controllers
         }
 
         /// <summary>
+        /// Creates a comment for a film by film id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="comment"></param>
+        /// <returns>The created OkResult for the response or NotFoundResult</returns>
+        // POST: api/Film/5/Comment
+        [HttpPost("{id}/Comments")]
+        public IActionResult PostCommentForFilm(int id, Comment comment)
+        {
+            comment.Film = _context.Films.Find(id);
+            if(comment.Film == null)
+            {
+                return NotFound();
+            }
+            _context.Comments.Add(comment);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        /// <summary>
         /// Delete a film by id
         /// </summary>
         /// <param name="id"></param>
@@ -160,5 +205,7 @@ namespace Project2.Controllers
         {
             return _context.Films.Any(e => e.Id == id);
         }
+
+
     }
 }

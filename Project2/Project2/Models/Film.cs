@@ -36,6 +36,8 @@ namespace Project2.Models
         [Required]
         public string Watched { get; set; }
 
+        public List<Comment> Comments { get; set; }
+
         public Film()
         {
 
