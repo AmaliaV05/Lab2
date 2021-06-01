@@ -67,19 +67,32 @@ namespace Project2.Controllers
         /// <returns>Returs a list of comments</returns>
         // GET: api/Film/5/Comment
         [HttpGet("{id}/Comments")]
-        public ActionResult<IEnumerable<Object>> GetCommentsForProduct(int id)
+        public ActionResult<IEnumerable<FilmWithCommentViewModel>> GetCommentsForProduct(int id)
         {
-            var query = _context.Comments.Where(c => c.Film.Id == id)
+            var query_v1 = _context.Comments.Where(c => c.Film.Id == id)
                 .Include(c => c.Film)
-                .Select(c => new
+                .Select(c => new FilmWithCommentViewModel
                 {
-                    Film = c.Film.Title,
-                    Comment = c.Text
+                    Id = c.Film.Id,
+                    Title = c.Film.Title,
+                    Description = c.Film.Description,
+                    Rating = c.Film.Rating,
+                    Watched = c.Film.Watched,
+                    Comments = c.Film.Comments.Select(fc => new CommentViewModel
+                    {
+                        Id = fc.Id,
+                        Text = fc.Text,
+                        Important = fc.Important
+                    })
                 });
             
-            _logger.LogInformation(query.ToQueryString());
+            var query_v2 = _context.Films.Where(f => f.Id == id)
+                .Include(f => f.Comments)
+                .Select(f => _mapper.Map<FilmWithCommentViewModel>(f));
 
-            return query.ToList();
+            _logger.LogInformation(query_v2.ToQueryString());
+
+            return query_v2.ToList();
         }
 
         /// <summary>
