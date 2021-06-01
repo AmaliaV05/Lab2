@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace Project2.Models
 {
     public enum Genre {
-        Action = 1,
-        Comedy = 2,
-        Horror = 3,
-        Thriller = 4
+        Action,
+        Comedy,
+        Horror,
+        Thriller
     }
 
     public class Film
