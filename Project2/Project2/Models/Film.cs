@@ -22,7 +22,6 @@ namespace Project2.Models
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }
-        //[JsonConverter(typeof(StringEnumConverter))]
         [Required]
         public Genre Genre { get; set; }
         [Required]

@@ -155,6 +155,53 @@ namespace Project2.Controllers
 
             return NoContent();
         }
+        
+        /// <summary>
+        /// Update a comment from film by film id and comment id
+        /// </summary>
+        /// <param name="idFilm"></param>
+        /// <param name="idComment"></param>
+        /// <param name="filmWithCommentViewModel"></param>
+        /// <returns>Returns no content</returns>
+        // PUT: api/Film/5/Comment/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{idFilm}/Comments/{idComment}")]
+        public async Task<IActionResult> PutComment(int idFilm, int idComment, FilmWithCommentViewModel filmWithCommentViewModel)
+        {
+
+            var film = _mapper.Map<Film>(filmWithCommentViewModel);
+            var com = _mapper.Map<Comment>(filmWithCommentViewModel);
+
+            if (idFilm != film.Id)
+            {
+                return BadRequest();
+            }
+
+            if (idComment != com.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(com).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!FilmExists(idFilm) || (FilmExists(idFilm) && !CommentExists(idComment)))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
 
         /// <summary>
         /// Create a new film entry
@@ -225,11 +272,43 @@ namespace Project2.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Delete a comment from a film by film id and comment id
+        /// </summary>
+        /// <param name="idFilm"></param>
+        /// <param name="idComment"></param>
+        /// <returns>No content result</returns>
+        // DELETE: api/Film/5/Comment/5
+        [HttpDelete("{id}/Comments/{idComment}")]
+        public async Task<IActionResult> DeleteComment(int idFilm, int idComment)
+        {
+            var film = await _context.Films.FindAsync(idFilm);
+            var comment = await _context.Comments.FindAsync(idComment);
+
+            if (film == null)
+            {
+                return NotFound();
+            }
+
+            if(comment == null)
+            {
+                return NotFound();
+            }
+
+            _context.Comments.Remove(comment);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         private bool FilmExists(int id)
         {
             return _context.Films.Any(e => e.Id == id);
         }
 
-
+        private bool CommentExists(int id)
+        {
+            return _context.Comments.Any(e => e.Id == id);
+        }
     }
 }
