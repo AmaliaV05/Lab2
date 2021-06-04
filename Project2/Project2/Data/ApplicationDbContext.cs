@@ -20,6 +20,7 @@ namespace Project2.Data
         public DbSet<Film> Films { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

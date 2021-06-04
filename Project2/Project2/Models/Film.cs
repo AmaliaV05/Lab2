@@ -35,6 +35,7 @@ namespace Project2.Models
         public string Watched { get; set; }
 
         public List<Comment> Comments { get; set; }
+        public List<Reservation> Reservations { get; set; }
 
         public Film()
         {
