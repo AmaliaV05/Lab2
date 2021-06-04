@@ -105,17 +105,13 @@ namespace Project2.Controllers
         // GET: api/Film/filter/{firstDate, lastDate}
         [HttpGet]
         [Route("filter/{firstDate, lastDate}")]
-        public ActionResult<IEnumerable<FilmViewModel>> FilterFilms(DateTime? firstDate, DateTime? lastDate)
+        public ActionResult<IEnumerable<FilmViewModel>> FilterFilms(DateTime firstDate, DateTime lastDate)
         {
             var filmViewModelList = _context.Films.Select(film => _mapper.Map<FilmViewModel>(film)).ToList();
-            if (firstDate == null || lastDate == null)
-            {
-                return filmViewModelList;
-            }
-            return _context.Films.Select(film => _mapper.Map<FilmViewModel>(film))
-                                  .Where(film => film.DateAdded >= firstDate && film.DateAdded <= lastDate)
-                                  .OrderByDescending(film => film.YearOfRelease)
-                                  .ToList();
+
+            var filmListSorted = filmViewModelList.Where(film => film.DateAdded >= firstDate && film.DateAdded <= lastDate).ToList();
+
+            return filmListSorted.OrderByDescending(film => film.YearOfRelease).ToList();
         }
 
         /// <summary>
