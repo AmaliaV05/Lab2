@@ -86,7 +86,8 @@ namespace Project2.Controllers
                     })
                 });*/
             
-            var query_v2 = _context.Films.Where(f => f.Id == id)
+            var query_v2 = _context.Films
+                .Where(f => f.Id == id)
                 .Include(f => f.Comments)
                 .Select(f => _mapper.Map<FilmWithCommentViewModel>(f));
 
@@ -206,14 +207,14 @@ namespace Project2.Controllers
         /// <summary>
         /// Create a new film entry
         /// </summary>
-        /// <param name="filmViewModel"></param>
+        /// <param name="filmRequest"></param>
         /// <returns>Returns the new film entry</returns>
         // POST: api/Film
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Film>> PostFilm(FilmViewModel filmViewModel)
+        public async Task<ActionResult<FilmViewModel>> PostFilm(FilmViewModel filmRequest)
         {
-            var film = _mapper.Map<Film>(filmViewModel);
+            Film film = _mapper.Map<Film>(filmRequest);
             _context.Films.Add(film);
             await _context.SaveChangesAsync();
 

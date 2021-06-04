@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Project2.Data;
 using Project2.Models;
+using Project2.Validators;
+using Project2.ViewModels;
 using System;
 using System.IO;
 using System.Reflection;
@@ -60,7 +64,13 @@ namespace Project2
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SigningKey"]))
                     };
                 });
-            services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter()));
+            services.AddControllersWithViews()
+                .AddFluentValidation()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+                    //options.JsonSerializerOptions.IgnoreNullValues = true;
+                });
             services.AddRazorPages();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -87,12 +97,16 @@ namespace Project2
                         Url = new Uri("https://example.com/license"),
                     }
                 });
+                //c.UseInlineDefinitionsForEnums();
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            
             services.AddAutoMapper(typeof(MappingProfile));
+
+            services.AddTransient<IValidator<FilmViewModel>, FilmValidator>();// or add scope
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

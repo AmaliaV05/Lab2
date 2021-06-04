@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace Project2.ViewModels
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public enum Genre { Action, Comedy, Horror, Thriller }
+        public Genre Genre { get; set; }
         public string Duration { get; set; }
         public int YearOfRelease { get; set; }
         public string Director { get; set; }
