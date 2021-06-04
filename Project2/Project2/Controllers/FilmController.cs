@@ -69,7 +69,7 @@ namespace Project2.Controllers
         [HttpGet("{id}/Comments")]
         public ActionResult<IEnumerable<FilmWithCommentViewModel>> GetCommentsForProduct(int id)
         {
-            var query_v1 = _context.Comments.Where(c => c.Film.Id == id)
+            /*var query_v1 = _context.Comments.Where(c => c.Film.Id == id)
                 .Include(c => c.Film)
                 .Select(c => new FilmWithCommentViewModel
                 {
@@ -84,7 +84,7 @@ namespace Project2.Controllers
                         Text = fc.Text,
                         Important = fc.Important
                     })
-                });
+                });*/
             
             var query_v2 = _context.Films.Where(f => f.Id == id)
                 .Include(f => f.Comments)
@@ -279,7 +279,7 @@ namespace Project2.Controllers
         /// <param name="idComment"></param>
         /// <returns>No content result</returns>
         // DELETE: api/Film/5/Comment/5
-        [HttpDelete("{id}/Comments/{idComment}")]
+        [HttpDelete("{idFilm}/Comments/{idComment}")]
         public async Task<IActionResult> DeleteComment(int idFilm, int idComment)
         {
             var film = await _context.Films.FindAsync(idFilm);
