@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Project2.Data;
 using Project2.Models;
+using Project2.Services;
 using Project2.Validators;
 using Project2.ViewModels;
 using System;
@@ -107,6 +108,8 @@ namespace Project2
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddTransient<IValidator<FilmViewModel>, FilmValidator>();// or add scope
+
+            services.AddTransient<IAuthManagementService, AuthManagementService>();// or add scope
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
