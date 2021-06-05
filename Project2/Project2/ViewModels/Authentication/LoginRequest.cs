@@ -8,12 +8,12 @@ namespace Project2.ViewModels.Authentication
 {
     public class LoginRequest
     {
-        [Required]
-        [EmailAddress]
+        /*[Required]
+        [EmailAddress]*/
         public string Email { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
+        /*[Required]
+        [DataType(DataType.Password)]*/
         public string Password { get; set; }
     }
 }

@@ -22,9 +22,9 @@ namespace Project2.Validators
             {
                 var instance = validationContext.InstanceToValidate;
                 int commentsForGenre = _context.Comments.Where(c => c.Film.Genre == instance.Genre).Count();
-                if (commentsForGenre > 10)
+                if (commentsForGenre > 1000)
                 {
-                    validationContext.AddFailure($"Cannot add a film with genre {instance.Genre} because that genre has more than 10 comments: it has {commentsForGenre}.");
+                    validationContext.AddFailure($"Cannot add a film with genre {instance.Genre} because that genre has more than 1000 comments: it has {commentsForGenre}.");
                 }
             });
         }

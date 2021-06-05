@@ -126,7 +126,7 @@ namespace Project2.Controllers
         public async Task<IActionResult> PutFilm(int id, FilmViewModel filmViewModel)
         {
             var film = _mapper.Map<Film>(filmViewModel);
-            Console.WriteLine("Hi!");
+
             if (id != film.Id)
             {
                 return BadRequest();
@@ -154,25 +154,26 @@ namespace Project2.Controllers
         }
         
         /// <summary>
-        /// Update a comment from film by film id and comment id
+        /// Update a comment from film by film id and comment id NOT WORKING
         /// </summary>
         /// <param name="idFilm"></param>
         /// <param name="idComment"></param>
-        /// <param name="filmWithCommentViewModel"></param>
+        /// <param name="commentViewModel"></param>
         /// <returns>Returns no content</returns>
         // PUT: api/Film/5/Comment/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{idFilm}/Comments/{idComment}")]
-        public async Task<IActionResult> PutComment(int idFilm, int idComment, FilmWithCommentViewModel filmWithCommentViewModel)
+        public async Task<IActionResult> PutComment(int idFilm, int idComment, CommentViewModel commentViewModel)
         {
+            var film = _context.Films.Where(p => p.Id == idFilm)
+                                    .Include(p => p.Comments)
+                                    .FirstOrDefault();
+            var com = _mapper.Map<Comment>(commentViewModel);
 
-            var film = _mapper.Map<Film>(filmWithCommentViewModel);
-            var com = _mapper.Map<Comment>(filmWithCommentViewModel);
-
-            if (idFilm != film.Id)
+            /*if (idFilm != film.Id)
             {
                 return BadRequest();
-            }
+            }*/
 
             if (idComment != com.Id)
             {
@@ -270,7 +271,7 @@ namespace Project2.Controllers
         }
 
         /// <summary>
-        /// Delete a comment from a film by film id and comment id
+        /// Delete a comment from a film by film id and comment id NOT WORKING
         /// </summary>
         /// <param name="idFilm"></param>
         /// <param name="idComment"></param>

@@ -18,6 +18,7 @@ using Project2.Models;
 using Project2.Services;
 using Project2.Validators;
 using Project2.ViewModels;
+using Project2.ViewModels.Authentication;
 using System;
 using System.IO;
 using System.Reflection;
@@ -108,6 +109,8 @@ namespace Project2
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddTransient<IValidator<FilmViewModel>, FilmValidator>();// or add scope
+            services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
+            services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
 
             services.AddTransient<IAuthManagementService, AuthManagementService>();// or add scope
         }
