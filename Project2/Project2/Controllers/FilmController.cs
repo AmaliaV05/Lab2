@@ -126,7 +126,7 @@ namespace Project2.Controllers
         public async Task<IActionResult> PutFilm(int id, FilmViewModel filmViewModel)
         {
             var film = _mapper.Map<Film>(filmViewModel);
-
+            Console.WriteLine("Hi!");
             if (id != film.Id)
             {
                 return BadRequest();

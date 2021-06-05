@@ -33,6 +33,11 @@ namespace Project2.Controllers
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Make one or more reservations to films
+        /// </summary>
+        /// <param name="newReservationRequest"></param>
+        /// <returns>returns Ok if reservation is successful, else Bad Request</returns>
         [HttpPost]
         public async Task<ActionResult> MakeReservation(NewReservationRequest newReservationRequest)
         {
@@ -65,6 +70,10 @@ namespace Project2.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Get all reservations made
+        /// </summary>
+        /// <returns>Returns all revservations</returns>
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
