@@ -127,6 +127,12 @@ namespace Project2
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+
+                app.UseCors(builder =>
+                    builder.AllowAnyOrigin()//nu este indicat in cazul aplicatiilor reale
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    );
             }
             else
             {

@@ -11,6 +11,5 @@ namespace Project2.Models
         public ApplicationUser ApplicationUser { get; set; }
         public IEnumerable<Film> Films { get; set; }
         public DateTime ReservationDateTime { get; set; }
-        public int SeatNumber { get; set; }
     }
 }
