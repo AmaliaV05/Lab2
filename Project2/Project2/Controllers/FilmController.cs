@@ -10,9 +10,11 @@ using Microsoft.Extensions.Logging;
 using Project2.Data;
 using Project2.Models;
 using Project2.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Project2.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Identity.Application,Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class FilmController : ControllerBase
@@ -33,6 +35,7 @@ namespace Project2.Controllers
         /// </summary>
         /// <returns>Returns all films</returns>
         // GET: api/Film
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Film>>> GetFilms()
         {
@@ -66,8 +69,9 @@ namespace Project2.Controllers
         /// <param name="id"></param>
         /// <returns>Returs a list of comments</returns>
         // GET: api/Film/5/Comment
+        [AllowAnonymous]
         [HttpGet("{id}/Comments")]
-        public ActionResult<IEnumerable<FilmWithCommentViewModel>> GetCommentsForProduct(int id)
+        public ActionResult<IEnumerable<FilmWithCommentViewModel>> GetCommentsForFilm(int id)
         {
             /*var query_v1 = _context.Comments.Where(c => c.Film.Id == id)
                 .Include(c => c.Film)
@@ -110,6 +114,23 @@ namespace Project2.Controllers
             var filmViewModelList = _context.Films.Select(film => _mapper.Map<FilmViewModel>(film)).ToList();
 
             var filmListSorted = filmViewModelList.Where(film => film.DateAdded >= firstDate && film.DateAdded <= lastDate).ToList();
+
+            return filmListSorted.OrderByDescending(film => film.YearOfRelease).ToList();
+        }
+
+        /// <summary>
+        /// Get all films by a specific genre
+        /// </summary>
+        /// <param name="genre"></param>
+        /// <returns>All films by a specific genre in descending order by year of release</returns>
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("filter-genre/{genre}")]
+        public ActionResult<IEnumerable<FilmViewModel>> FilterFilmsByGenre(Genre genre)
+        {
+            var filmViewModelList = _context.Films.Select(film => _mapper.Map<FilmViewModel>(film)).ToList();
+
+            var filmListSorted = filmViewModelList.Where(film => film.Genre == genre).ToList();
 
             return filmListSorted.OrderByDescending(film => film.YearOfRelease).ToList();
         }
