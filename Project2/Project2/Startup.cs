@@ -38,6 +38,8 @@ namespace Project2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(MappingProfile));
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -52,27 +54,23 @@ namespace Project2
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddAuthentication()
-                .AddIdentityServerJwt()
-                .AddJwtBearer(options =>
-                {
-                    options.SaveToken = true;
-                    options.RequireHttpsMetadata = true;
-                    options.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidAudience = Configuration["Jwt:Site"],
-                        ValidIssuer = Configuration["Jwt:Site"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SigningKey"]))
-                    };
-                });
+                 .AddIdentityServerJwt()
+                 .AddJwtBearer(options =>
+                 {
+                     options.SaveToken = true;
+                     options.RequireHttpsMetadata = true;
+                     options.TokenValidationParameters = new TokenValidationParameters()
+                     {
+                         ValidateIssuer = true,
+                         ValidateAudience = true,
+                         ValidAudience = Configuration["Jwt:Site"],
+                         ValidIssuer = Configuration["Jwt:Site"],
+                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SigningKey"]))
+                     };
+                 });
             services.AddControllersWithViews()
                 .AddFluentValidation()
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
-                    //options.JsonSerializerOptions.IgnoreNullValues = true;
-                });
+                .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter()));
             services.AddRazorPages();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -104,9 +102,7 @@ namespace Project2
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
-            });
-            
-            services.AddAutoMapper(typeof(MappingProfile));
+            }); 
 
             services.AddTransient<IValidator<FilmViewModel>, FilmValidator>();// or add scope
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
