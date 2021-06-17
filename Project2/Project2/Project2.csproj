@@ -44,6 +44,8 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\films\films-list\films-list.component.ts" />
     <None Remove="ClientApp\src\app\films\films.model.ts" />
+    <None Remove="ClientApp\src\app\reservations\reservations-list\reservations-list.component.ts" />
+    <None Remove="ClientApp\src\app\reservations\reservations.model.ts" />
   </ItemGroup>
 
   <ItemGroup>

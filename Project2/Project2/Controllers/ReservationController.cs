@@ -79,7 +79,7 @@ namespace Project2.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var result = _context.Reservations.Where(o => o.ApplicationUser.Id == user.Id).Include(o => o.Films).FirstOrDefault();
+            var result = _context.Reservations.Where(r => r.ApplicationUser.Id == user.Id).Include(r => r.Films).FirstOrDefault();
             var resultViewModel = _mapper.Map<ReservationForUserResponse>(result);
 
             return Ok(resultViewModel);

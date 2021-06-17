@@ -1,0 +1,22 @@
+<h1 id="tableLabel">Reservations</h1>
+
+<p>This component lists reservations.</p>
+
+<p *ngIf="!reservations"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="reservations">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Films</th>
+      <th>Reservation date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reservation of reservations">
+      <td>{{ reservation.id }}</td>
+      <td>{{ reservation.films }}</td>
+      <td>{{ reservation.reservationDateTime }}</td>
+    </tr>
+  </tbody>
+</table>
