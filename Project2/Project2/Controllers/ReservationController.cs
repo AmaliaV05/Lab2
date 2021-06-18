@@ -41,7 +41,7 @@ namespace Project2.Controllers
         [HttpPost]
         public async Task<ActionResult> MakeReservation(NewReservationRequest newReservationRequest)
         {
-            var user = await _userManager.FindByNameAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var user = await _userManager.FindByEmailAsync(User.FindFirst(ClaimTypes.Email).Value);
 
             List<Film> reservedFilms = new List<Film>();
             newReservationRequest.ReservedFilmsIds.ForEach(fid =>
@@ -77,7 +77,7 @@ namespace Project2.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
-            var user = await _userManager.FindByNameAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var user = await _userManager.FindByEmailAsync(User.FindFirst(ClaimTypes.Email).Value);
 
             var result = _context.Reservations.Where(r => r.ApplicationUser.Id == user.Id).Include(r => r.Films).FirstOrDefault();
             var resultViewModel = _mapper.Map<ReservationForUserResponse>(result);

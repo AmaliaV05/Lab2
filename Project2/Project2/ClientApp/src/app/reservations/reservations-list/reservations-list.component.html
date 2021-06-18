@@ -8,14 +8,14 @@
   <thead>
     <tr>
       <th>Id</th>
-      <th>Films</th>
+      <th>Film title</th>
       <th>Reservation date</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let reservation of reservations">
       <td>{{ reservation.id }}</td>
-      <td>{{ reservation.films }}</td>
+      <td *ngFor="let film of reservations.films">{{ film.title }}</td>
       <td>{{ reservation.reservationDateTime }}</td>
     </tr>
   </tbody>
