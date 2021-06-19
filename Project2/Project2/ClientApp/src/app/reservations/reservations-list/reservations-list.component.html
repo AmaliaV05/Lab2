@@ -7,16 +7,24 @@
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="reservations">
   <thead>
     <tr>
-      <th>Id</th>
+      <th>Reservation no.</th>
       <th>Film title</th>
       <th>Reservation date</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let reservation of reservations">
-      <td>{{ reservation.id }}</td>
-      <td *ngFor="let film of reservations.films">{{ film.title }}</td>
-      <td>{{ reservation.reservationDateTime }}</td>
+    <tr *ngFor="let reservation of reservations | keyvalue; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>
+        <table>
+          <tr *ngFor="let film of reservations.films">
+            <td>{{ film.title }}</td>
+            <td>{{ film.dateAdded | date:'medium'}}</td>
+            <td>{{ film.genre}}</td>
+          </tr>
+        </table>
+      </td>
+      <td>{{reservation.value | date:'medium'}}</td><!--arata formatare diferita, dar da eroare in consola-->
     </tr>
   </tbody>
 </table>

@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { Film } from '../../films/films.model';
 import { Reservation } from '../reservations.model';
 import { ReservationsService } from '../reservations.service';
 
@@ -8,7 +9,7 @@ import { ReservationsService } from '../reservations.service';
   templateUrl: './reservations-list.component.html',
   styleUrls: ['./reservations-list.component.css']
 })
-export class ReservationsListComponent {
+export class ReservationsListComponent implements OnInit {
 
   public reservations: Reservation[];
 
@@ -17,7 +18,11 @@ export class ReservationsListComponent {
   }
 
   getReservations() {
-    this.reservationsService.getReservations().subscribe(p => this.reservations = p);
+    this.reservationsService.getReservations().subscribe(
+      r => {
+        this.reservations = r;
+        //this.films = r.films;
+  });
   }
 
   ngOnInit() {
