@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -51,7 +51,8 @@ namespace Tests
                     {
                         _driver.FindElement(By.XPath("//img[@class='g-logo']"));
                         //Assert.True(true);
-                    } catch (NoSuchElementException)
+                    }
+                    catch (NoSuchElementException)
                     {
                         Assert.Fail("eMAG Genius logo not found.");
                     }
@@ -62,4 +63,3 @@ namespace Tests
         }
     }
 }
-*/

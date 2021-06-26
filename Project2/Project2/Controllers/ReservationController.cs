@@ -75,14 +75,18 @@ namespace Project2.Controllers
         /// </summary>
         /// <returns>Returns all revservations</returns>
         [HttpGet]
-        public async Task<ActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<ReservationForUserResponse>>> GetAll()
         {
             var user = await _userManager.FindByEmailAsync(User.FindFirst(ClaimTypes.Email).Value);
+            //var user = await _userManager.FindByNameAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var result = _context.Reservations.Where(r => r.ApplicationUser.Id == user.Id).Include(r => r.Films).FirstOrDefault();
-            var resultViewModel = _mapper.Map<ReservationForUserResponse>(result);
+            var result = _context.Reservations
+                .Where(r => r.ApplicationUser.Id == user.Id)
+                .Include(r => r.Films)
+                .Select(r => _mapper.Map<ReservationForUserResponse>(r)).ToList();
+            //var resultViewModel = _mapper.Map<ReservationForUserResponse>(result);
 
-            return Ok(resultViewModel);
+            return result;
         }
     }
 }
