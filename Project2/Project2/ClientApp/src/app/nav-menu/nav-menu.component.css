@@ -2,11 +2,20 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+  color: #FF8403;
+  font-size: 2em;
+}
+
+ul li.nav-item a.nav-link {
+  color: #25FDE9;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 html {
   font-size: 14px;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;

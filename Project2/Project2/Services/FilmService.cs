@@ -26,8 +26,6 @@ namespace Project2.Services
 
         public async Task<PagedList<Film>> GetAllFilms(FilmParams filmParams)
         {
-           //return await _context.Films.ToListAsync();
-           //var query = _context.Films.AsNoTracking();
            var query = _context.Films.AsQueryable();
 
            if (!String.IsNullOrEmpty(filmParams.Title))

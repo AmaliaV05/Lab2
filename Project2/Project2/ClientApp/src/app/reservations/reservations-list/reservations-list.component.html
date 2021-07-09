@@ -1,10 +1,10 @@
-<h1 id="tableLabel">Reservations</h1>
+<!--<h1 id="tableLabel">My Reservations</h1>
 
-<p>This component lists reservations.</p>
 
-<p *ngIf="!reservations"><em>Loading...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="reservations">
+<p *ngIf="!reservationsList"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="reservationsList">
   <thead>
     <tr>
       <th>Reservation no.</th>
@@ -13,11 +13,46 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let reservation of reservations | keyvalue; let i = index">
+    <tr *ngFor="let reservation of reservationsList; let i = index"
+        [reservation]="reservation"
+        [index]="i">
+      <td>1</td>
+      <td>
+        <table>
+          <tr *ngFor="let film of reservation[i].films">
+            <td>{{ film.title }}</td>
+            <td>{{ film.dateAdded | date:'medium'}}</td>
+            <td>{{ film.genre}}</td>
+          </tr>
+        </table>
+      </td>
+      <td>{{reservation[i].reservationDateTime}}</td>-->
+<!--arata formatare diferita, dar da eroare in consola-->
+<!--</tr>
+  </tbody>
+</table>-->
+
+
+<h1 id="tableLabel">Reservations</h1>
+
+<p>This component lists reservations.</p>
+
+<p *ngIf="!reservationsList"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="reservationsList">
+  <thead>
+    <tr>
+      <th>Reservation no.</th>
+      <th>Films</th>
+      <th>Reservation date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reservation of reservationsList | keyvalue; let i = index">
       <td></td>
       <td>
         <table>
-          <tr *ngFor="let film of reservations.films">
+          <tr *ngFor="let film of reservation.films">
             <td>{{ film.title }}</td>
             <td>{{ film.dateAdded | date:'medium'}}</td>
             <td>{{ film.genre}}</td>

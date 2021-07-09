@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Reservation } from '../reservations.model';
 import { ReservationsService } from '../reservations.service';
+import { HttpResponse } from '@angular/common/http';
+import { map } from "rxjs/operators";
 
 
 @Component({
@@ -12,16 +14,17 @@ import { ReservationsService } from '../reservations.service';
 export class ReservationsListComponent {
 
   //reservations: Reservation[];
-  reservations: any;
+  reservationsList: Observable<any>;
 
   constructor(private reservationsService: ReservationsService) {
 
   }
 
   getReservations() {
-   return this.reservationsService.getReservations().subscribe(
+    return this.reservationsService.get('api/reservation').subscribe(
       r => {
-        this.reservations = r;
+        this.reservationsList = r;
+        console.log(r);
       }, error => {
         console.log(error);
       })

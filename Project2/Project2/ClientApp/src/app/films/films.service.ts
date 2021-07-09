@@ -18,10 +18,6 @@ export class FilmsService {
     this.apiUrl = apiUrl;
   }
 
-  /*getFilms(): Observable<Film[]> {
-    return this.httpClient.get<Film[]>(this.apiUrl + 'film');
-  }*/
-
   getFilms(filmParams: FilmParams) {
 
     let params = this.getPaginationHeaders(filmParams.pageNumber, filmParams.pageSize);

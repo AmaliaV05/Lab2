@@ -44,9 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\films\film-card\film-card.component.ts" />
     <None Remove="ClientApp\src\app\films\film-edit\film-edit.component.ts" />
-    <None Remove="ClientApp\src\app\films\film-view\comment-add.component.ts" />
     <None Remove="ClientApp\src\app\films\film-view\film-page.component.ts" />
     <None Remove="ClientApp\src\app\films\film-view\film-view.component.ts" />
     <None Remove="ClientApp\src\app\films\films-list\films-list.component.ts" />

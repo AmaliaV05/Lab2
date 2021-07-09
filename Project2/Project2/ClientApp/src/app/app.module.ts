@@ -23,7 +23,7 @@ import { FilmsListViewComponent } from './films/film-view/film-view.component';
 import { FilmPageComponent } from './films/film-view/film-page.component';
 import { FilmsService } from './films/films.service';
 import { EditFilmPage } from './films/film-edit/film-edit.component';
-import { FilmCardComponent } from './films/film-card/film-card.component';
+import { ReservationsService } from './reservations/reservations.service';
 
 @NgModule({
   declarations: [
@@ -37,8 +37,7 @@ import { FilmCardComponent } from './films/film-card/film-card.component';
     FilmAddComponent,
     FilmsListViewComponent,
     FilmPageComponent,
-    EditFilmPage,
-    FilmCardComponent
+    EditFilmPage
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -64,7 +63,8 @@ import { FilmCardComponent } from './films/film-card/film-card.component';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    FilmsService
+    FilmsService,
+    ReservationsService
   ],
   exports: [
     PaginationModule, RouterModule, ModalModule
