@@ -1,0 +1,18 @@
+
+<p *ngIf="!films"><em>Loading...</em></p>
+<div class="container">
+  <div class="row">
+    <div class="col-9">
+      <div class="m-4">
+        <div *ngFor="let film of films" class="media p-4">
+          <img class="align-self-center mr-3" src="https://images.pexels.com/photos/4652275/pexels-photo-4652275.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" style="width:15%;" alt="Film photo">
+          <div class="media-body">       
+            <h4 class="mt-0" routerLink="/film-with-comments/{{film.id}}/{{film.title}}">{{film.title}}</h4>
+            <span>{{film.director}} </span><span>{{film.genre}} - </span><span>{{film.yearOfRelease}}</span>
+            <p class="mb-0">{{film.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

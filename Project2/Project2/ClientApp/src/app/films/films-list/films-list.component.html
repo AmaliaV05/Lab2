@@ -4,6 +4,11 @@
 
 <p *ngIf="!films"><em>Loading...</em></p>
 
+<div>
+  <button class="btn btn-primary" (click)="goToAddFilm()">Add new film</button>
+</div>
+<br />
+
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="films">
   <thead>
     <tr>
@@ -15,8 +20,8 @@
       <th>Year of release</th>
       <th>Director</th>
       <th>Date added</th>
-      <th>Rating</th>
-      <th>Watched</th>
+      <th>Edit film</th>
+      <th>Delete film</th>
     </tr>
   </thead>
   <tbody>
@@ -29,8 +34,8 @@
       <td>{{ film.yearOfRelease }}</td>
       <td>{{ film.director }}</td>
       <td>{{ film.dateAdded | date:'medium'}}</td>
-      <td>{{ film.rating }}</td>
-      <td>{{ film.watched }}</td>
+      <td><img id="edit-icon" style="width: 2em" src="https://toppng.com/uploads/preview/75476-2019-02-08-edit-icon-png-small-11563142463qiwrzqx0e1.png" alt="Edit film" routerLink="/films/{{film.id}}"></td>
+      <td><img id="delete-icon" style="width: 2em" src="https://icon-library.com/images/delete-icon-transparent-background/delete-icon-transparent-background-12.jpg" alt="Delete icon" (click)="deleteFilm(film)" /></td>
     </tr>
   </tbody>
 </table>

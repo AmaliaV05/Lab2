@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { PreloadAllModules, RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -14,7 +16,11 @@ import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { FilmsListComponent } from './films/films-list/films-list.component';
 import { ReservationsListComponent } from './reservations/reservations-list/reservations-list.component'
-
+import { FilmAddComponent } from './films/film-add/film-add.component';
+import { FilmsListViewComponent } from './films/film-view/film-view.component';
+import { FilmPageComponent } from './films/film-view/film-page.component';
+import { FilmsService } from './films/films.service';
+import { EditFilmPage } from './films/film-edit/film-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,23 +30,38 @@ import { ReservationsListComponent } from './reservations/reservations-list/rese
     CounterComponent,
     FetchDataComponent,
     FilmsListComponent,
-    ReservationsListComponent
+    ReservationsListComponent,
+    FilmAddComponent,
+    FilmsListViewComponent,
+    FilmPageComponent,
+    EditFilmPage
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
     ApiAuthorizationModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
       { path: 'films', component: FilmsListComponent },
+      { path: 'films/add', component: FilmAddComponent },
+      { path: 'films/:id', component: EditFilmPage },
+      { path: 'explore', component: FilmsListViewComponent },
+      { path: 'film-with-comments/:id/:title', component: FilmPageComponent },
       { path: 'reservations', component: ReservationsListComponent, canActivate: [AuthorizeGuard] }
-    ])
+
+    ], { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' }),
+    ReactiveFormsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    FilmsService
+  ],
+  exports: [
+    RouterModule
   ],
   bootstrap: [AppComponent]
 })

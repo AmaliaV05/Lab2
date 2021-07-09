@@ -1,0 +1,58 @@
+<div class="alert alert-primary" role="alert">
+  Any unsaved changes will be lost
+</div>
+<div>
+  <form style="width: 40%">
+      <div class="form-group">
+        <label>Title</label>
+        <input class="form-control" type="text" [(ngModel)]="film.title" name="title">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input class="form-control" type="text" [(ngModel)]="film.description" name="description">
+      </div>
+      <div class="form-group">
+        <label>Genre</label>
+        <select data-toggle="popover" data-placement="bottom" class="form-control" [(ngModel)]="film.genre" name="genre">
+          <option *ngFor="let opt of GENRE" [value]="opt">
+            {{opt}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Duration</label>
+        <input class="form-control" type="text" [(ngModel)]="film.duration" name="duration">
+      </div>
+      <div class="form-group">
+        <label>Year</label>
+        <input class="form-control" type="text" [(ngModel)]="film.yearOfRelease" name="yearOfRelease">
+      </div>
+
+      <div class="form-group">
+        <label>Director</label>
+        <input class="form-control" type="text" [(ngModel)]="film.director" name="director">
+      </div>
+      <div class="form-group">
+        <label>Date added</label>
+        <input class="form-control" type="text" [(ngModel)]="film.dateAdded" name="dateAdded">
+      </div>
+      <div class="form-group">
+        <label>Rating</label>
+        <input class="form-control" type="text" [(ngModel)]="film.rating" name="rating">
+      </div>
+      <div class="form-group">
+        <label>Watched</label>
+        <input class="form-control" type="text" [(ngModel)]="film.watched" name="watched">
+      </div>
+    </form>
+</div>
+
+
+<button class="btn btn-primary" (click)="updateFilm()">Save film</button>
+<br />
+<br />
+<button class="btn btn-info" expand="block" color="secondary" [routerLink]="'/films'">Back to films</button>
+<br />
+<br />
+<br />
+<br />

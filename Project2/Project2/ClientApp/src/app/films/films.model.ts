@@ -2,7 +2,7 @@ export class Film {
   id: number;
   title: string;
   description: string;
-  genre: string;
+  genre: Genre;
   duration: string;
   yearOfRelease: number;
   director: string;
@@ -10,3 +10,12 @@ export class Film {
   rating: number;
   watched: string;
 }
+
+export enum Genre {
+  Action,
+  Comedy,
+  Horror,
+  Thriller
+}
+
+export const GENRE = ['Action', 'Comedy', 'Horror', 'Thriller'];

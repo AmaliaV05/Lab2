@@ -14,7 +14,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let reservation of reservations | keyvalue; let i = index">
-      <td>{{ i + 1 }}</td>
+      <td></td>
       <td>
         <table>
           <tr *ngFor="let film of reservations.films">
@@ -24,7 +24,7 @@
           </tr>
         </table>
       </td>
-      <td>{{reservation.value | date:'medium'}}</td><!--arata formatare diferita, dar da eroare in consola-->
+      <td>{{reservation.value}}</td><!--arata formatare diferita, dar da eroare in consola-->
     </tr>
   </tbody>
 </table>

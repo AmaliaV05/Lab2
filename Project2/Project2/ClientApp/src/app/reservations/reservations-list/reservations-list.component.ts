@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Reservation } from '../reservations.model';
 import { ReservationsService } from '../reservations.service';
 
@@ -10,17 +11,20 @@ import { ReservationsService } from '../reservations.service';
 })
 export class ReservationsListComponent {
 
-  public reservations: Reservation[];
+  //reservations: Reservation[];
+  reservations: any;
 
   constructor(private reservationsService: ReservationsService) {
 
   }
 
   getReservations() {
-    this.reservationsService.getReservations().subscribe(
+   return this.reservationsService.getReservations().subscribe(
       r => {
         this.reservations = r;
-  });
+      }, error => {
+        console.log(error);
+      })
   }
 
   ngOnInit() {

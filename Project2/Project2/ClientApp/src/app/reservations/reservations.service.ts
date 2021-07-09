@@ -7,15 +7,16 @@ import { Reservation } from './reservations.model';
   providedIn: 'root'
 })
 export class ReservationsService {
-
+  reservations: any;
   private apiUrl: string;
 
   constructor(private httpClient: HttpClient, @Inject('API_URL') apiUrl: string) {
     this.apiUrl = apiUrl;
   }
 
-  getReservations(): Observable<Reservation[]> {
+  getReservations() {
     return this.httpClient.get<Reservation[]>(this.apiUrl + 'reservation');
+    //this.httpClient.get('https://localhost:5001/reservations');
   }
 
 }
