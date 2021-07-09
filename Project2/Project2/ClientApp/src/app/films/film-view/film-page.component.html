@@ -11,6 +11,14 @@
           </div>
         </div>
       </div>
+      <div *ngFor="let comment of filmWithComments[0]?.comments">
+        <div class="media p-4">
+          <div class="media-body" style="background-color: #00ffff">
+            <p class="mt-0">{{comment.text}}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+

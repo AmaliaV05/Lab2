@@ -22,6 +22,7 @@ import { FilmsListViewComponent } from './films/film-view/film-view.component';
 import { FilmPageComponent } from './films/film-view/film-page.component';
 import { FilmsService } from './films/films.service';
 import { EditFilmPage } from './films/film-edit/film-edit.component';
+import { FilmCardComponent } from './films/film-card/film-card.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { EditFilmPage } from './films/film-edit/film-edit.component';
     FilmAddComponent,
     FilmsListViewComponent,
     FilmPageComponent,
-    EditFilmPage
+    EditFilmPage,
+    FilmCardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

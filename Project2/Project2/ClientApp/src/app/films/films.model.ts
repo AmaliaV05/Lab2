@@ -12,6 +12,7 @@ export class Film {
   rating: number;
   watched: string;
   reservations: Reservation[];
+  comments: Comment[];
 }
 
 export enum Genre {
@@ -22,3 +23,18 @@ export enum Genre {
 }
 
 export const GENRE = ['Action', 'Comedy', 'Horror', 'Thriller'];
+
+export class Comment {
+  id: number;
+  text: string;
+  important: string;
+}
+
+export interface FilmWithComments {
+  id: number;
+  title: string;
+  description: string;
+  rating: number;
+  watched: string;
+  comments: Comment[];
+}

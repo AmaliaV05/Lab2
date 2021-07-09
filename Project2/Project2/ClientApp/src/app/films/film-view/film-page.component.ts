@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Film, GENRE } from '../films.model';
+import { Film, GENRE, Comment, FilmWithComments } from '../films.model';
 
 import { FilmsService } from '../films.service';
 
@@ -12,11 +12,24 @@ import { FilmsService } from '../films.service';
 export class FilmPageComponent implements OnInit {
   GENRE = GENRE;
   film = new Film();
+  filmWithComments = new Film();
 
   constructor(private apiSvc: FilmsService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getFilm(this.route.snapshot.paramMap.get('id'));
+
+    let idFilm = this.route.snapshot.params.id;
+    console.log(idFilm);
+
+    this.apiSvc.getComments(idFilm).subscribe(
+      data => {
+        this.filmWithComments = data;
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   getFilm(id): void {
@@ -30,4 +43,6 @@ export class FilmPageComponent implements OnInit {
           console.log(error);
         });
   }
+
+  
 }

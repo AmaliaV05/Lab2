@@ -70,6 +70,9 @@ export class FilmsService {
     return this.httpClient.put(`${baseUrl}/${id}`, data);
   }
 
+  getComments(id: any): Observable<any> {
+    return this.httpClient.get(`${baseUrl}/${id}/Comments`);
+  }
 
   private getHeaders() {
     const headers = {
