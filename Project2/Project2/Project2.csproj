@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -12,12 +12,14 @@
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
+    <UserSecretsId>07d951c7-483e-4b90-b750-5c117166995b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.6" />
@@ -44,6 +46,7 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\films\film-card\film-card.component.ts" />
     <None Remove="ClientApp\src\app\films\film-edit\film-edit.component.ts" />
+    <None Remove="ClientApp\src\app\films\film-view\comment-add.component.ts" />
     <None Remove="ClientApp\src\app\films\film-view\film-page.component.ts" />
     <None Remove="ClientApp\src\app\films\film-view\film-view.component.ts" />
     <None Remove="ClientApp\src\app\films\films-list\films-list.component.ts" />

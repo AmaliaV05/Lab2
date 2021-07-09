@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 import { AppComponent } from './app.component';
@@ -58,14 +59,15 @@ import { FilmCardComponent } from './films/film-card/film-card.component';
 
     ], { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' }),
     ReactiveFormsModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     FilmsService
   ],
   exports: [
-    PaginationModule, RouterModule
+    PaginationModule, RouterModule, ModalModule
   ],
   bootstrap: [AppComponent]
 })

@@ -3,7 +3,7 @@
     <div class="col-10">
       <div class="m-4">
         <div class="media p-4">
-          <img class="align-self-center mr-3" src="https://images.pexels.com/photos/4652275/pexels-photo-4652275.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" style="width:15%;" alt="Film photo">
+          <img class="align-self-center mr-3" src="https://images.pexels.com/photos/4652275/pexels-photo-4652275.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" style="width:30%;" alt="Film photo">
           <div class="media-body" style="background-color: #00ffff">
             <h4 class="mt-0">{{film.title}}</h4>
             <span>{{film.director}} </span><span>{{film.genre}} - </span><span>{{film.yearOfRelease}}</span>
@@ -11,6 +11,32 @@
           </div>
         </div>
       </div>
+
+      <div class="pl-4">
+        <button type="button" class="btn btn-primary" (click)="openModal(template)">Add comment</button>
+      </div>
+
+
+      <ng-template #template>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">Comment</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form style="width: 40%">
+            <div class="form-group">
+              <label>Title</label>
+              <input class="form-control" type="text" [(ngModel)]="newComment.text" name="text">
+            </div>
+          </form>
+          <div class="col text-center">
+            <button class="btn btn-info" (click)="postComment()">Post</button>
+          </div>
+        </div>
+      </ng-template>
+
       <div *ngFor="let comment of filmWithComments[0]?.comments">
         <div class="media p-4">
           <div class="media-body" style="background-color: #00ffff">
