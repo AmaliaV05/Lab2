@@ -11,6 +11,8 @@ using Project2.Models;
 using Project2.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Project2.Services;
+using Project2.Helpers;
+using Project2.HttpExtensions;
 
 namespace Project2.Controllers
 {
@@ -19,15 +21,18 @@ namespace Project2.Controllers
     [ApiController]
     public class FilmController : ControllerBase
     {
+        private IFilmService _filmService;
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly ILogger<FilmController> _logger;
+        
 
-        public FilmController(ApplicationDbContext context, IMapper mapper, ILogger<FilmController> logger)
+        public FilmController(IFilmService filmService, ApplicationDbContext context, IMapper mapper, ILogger<FilmController> logger)
         {
+            _filmService = filmService;
             _context = context;
             _mapper = mapper;
-            _logger = logger;
+            _logger = logger;            
         }
 
         /// <summary>
@@ -37,9 +42,16 @@ namespace Project2.Controllers
         // GET: api/Film
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Film>>> GetFilms()
+        public async Task<ActionResult<IEnumerable<Film>>> GetFilms([FromQuery]FilmParams filmParams)
         {
-            return await _context.Films.ToListAsync();
+            //var title = await _filmService.FilterFilmsByTitle(Film.);
+            //filmParams.Title = _
+
+            var films = await _filmService.GetAllFilms(filmParams);
+
+            Response.AddPaginationHeader(films.CurrentPage, films.PageSize, films.TotalCount, films.TotalPages);
+
+            return films.ToList();
         }
 
         /// <summary>

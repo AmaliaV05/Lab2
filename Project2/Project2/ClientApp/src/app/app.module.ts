@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
 import { AppComponent } from './app.component';
@@ -54,14 +55,15 @@ import { EditFilmPage } from './films/film-edit/film-edit.component';
       { path: 'reservations', component: ReservationsListComponent, canActivate: [AuthorizeGuard] }
 
     ], { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PaginationModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     FilmsService
   ],
   exports: [
-    RouterModule
+    PaginationModule, RouterModule
   ],
   bootstrap: [AppComponent]
 })

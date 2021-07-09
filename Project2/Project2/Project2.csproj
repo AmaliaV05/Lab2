@@ -46,6 +46,7 @@
     <None Remove="ClientApp\src\app\films\film-view\film-page.component.ts" />
     <None Remove="ClientApp\src\app\films\film-view\film-view.component.ts" />
     <None Remove="ClientApp\src\app\films\films-list\films-list.component.ts" />
+    <None Remove="ClientApp\src\app\films\films-list\films-pagination.model.ts" />
     <None Remove="ClientApp\src\app\films\films.model.ts" />
     <None Remove="ClientApp\src\app\films\film-add\film-add.component.ts" />
     <None Remove="ClientApp\src\app\reservations\reservations-list\reservations-list.component.ts" />

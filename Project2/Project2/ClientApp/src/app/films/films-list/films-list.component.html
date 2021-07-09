@@ -4,6 +4,20 @@
 
 <p *ngIf="!films"><em>Loading...</em></p>
 
+
+<div class="container mt-3">
+  <form #form="ngForm" class="form-inline mb-3" (ngSubmit)="getFilms()" autocomplete="off">
+    <div class="form-group">
+      <label>Search title</label>
+      <input type="text" class="form-control ml-1" style="width : 70%;"
+             name="title" [(ngModel)]="filmParams.titleFilter" />
+    </div>
+    <button class="btn btn-primary ml-1" data-toggle="tooltip" data-placement="top" title="Give full title" type="submit">Apply filter</button>
+    <button (click)="resetFilters()" class="btn btn-info ml-1" type="submit">Reset filter</button>
+  </form>
+</div>
+<br />
+
 <div>
   <button class="btn btn-primary" (click)="goToAddFilm()">Add new film</button>
 </div>
@@ -34,8 +48,23 @@
       <td>{{ film.yearOfRelease }}</td>
       <td>{{ film.director }}</td>
       <td>{{ film.dateAdded | date:'medium'}}</td>
-      <td><img id="edit-icon" style="width: 2em" src="https://toppng.com/uploads/preview/75476-2019-02-08-edit-icon-png-small-11563142463qiwrzqx0e1.png" alt="Edit film" routerLink="/films/{{film.id}}"></td>
-      <td><img id="delete-icon" style="width: 2em" src="https://icon-library.com/images/delete-icon-transparent-background/delete-icon-transparent-background-12.jpg" alt="Delete icon" (click)="deleteFilm(film)" /></td>
+      <td><img id="edit-icon" style="width: 2em; cursor: pointer;" src="https://toppng.com/uploads/preview/75476-2019-02-08-edit-icon-png-small-11563142463qiwrzqx0e1.png" alt="Edit film" routerLink="/films/{{film.id}}"></td>
+      <td><img id="delete-icon" style="width: 2em; cursor: pointer;" src="https://icon-library.com/images/delete-icon-transparent-background/delete-icon-transparent-background-12.jpg" alt="Delete icon" (click)="deleteFilm(film)" /></td>
     </tr>
   </tbody>
 </table>
+
+
+<div class="d-flex justify-content-center" *ngIf="pagination">
+  <pagination [boundaryLinks]="true"
+              [totalItems]="pagination.totalItems"
+              [itemsPerPage]="pagination.itemsPerPage"
+              [(ngModel)]="pagination.currentPage"
+              [maxSize]="5"
+              (pageChanged)="pageChanged($event)"
+              previousText="&lsaquo;"
+              nextText="&rsaquo;"
+              firstText="&laquo;"
+              lastText="&raquo;">
+  </pagination>
+</div>

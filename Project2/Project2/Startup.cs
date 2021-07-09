@@ -108,6 +108,8 @@ namespace Project2
             services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
             services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
 
+            services.AddTransient<IFilmService, FilmService>();
+
             services.AddTransient<IAuthManagementService, AuthManagementService>();// or add scope
         }
 

@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { FilmParams, PaginatedResult } from './films-list/films-pagination.model';
 import { Film } from './films.model';
 
 const baseUrl = 'https://localhost:5001/api/film';
@@ -16,8 +18,17 @@ export class FilmsService {
     this.apiUrl = apiUrl;
   }
 
-  getFilms(): Observable<Film[]> {
+  /*getFilms(): Observable<Film[]> {
     return this.httpClient.get<Film[]>(this.apiUrl + 'film');
+  }*/
+
+  getFilms(filmParams: FilmParams) {
+
+    let params = this.getPaginationHeaders(filmParams.pageNumber, filmParams.pageSize);
+
+    params = params.append('title', filmParams.titleFilter);
+
+    return this.getPaginatedResult<Film[]>(this.apiUrl + 'film', params);
   }
 
   get(path: string, params?: any): Observable<any> {
@@ -77,5 +88,26 @@ export class FilmsService {
       (p, key) => p.set(key, params[key]),
       new HttpParams()
     );
+  }
+
+  private getPaginatedResult<T>(url, params) {
+    const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>();
+    return this.httpClient.get<T>(url, { observe: 'response', params }).pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') !== null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
+      }));
+  }
+
+  private getPaginationHeaders(pageNumber: number, pageSize: number) {
+    let params = new HttpParams();
+
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+
+    return params;
   }
 }

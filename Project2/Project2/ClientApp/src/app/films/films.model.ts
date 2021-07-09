@@ -1,3 +1,5 @@
+import { Reservation } from "../reservations/reservations.model";
+
 export class Film {
   id: number;
   title: string;
@@ -9,6 +11,7 @@ export class Film {
   dateAdded: string;
   rating: number;
   watched: string;
+  reservations: Reservation[];
 }
 
 export enum Genre {

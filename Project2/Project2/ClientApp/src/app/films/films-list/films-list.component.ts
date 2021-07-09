@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Film } from '../films.model';
 import { FilmsService } from '../films.service';
 import { Router } from '@angular/router';
+import { PaginatedResult, Pagination, FilmParams } from './films-pagination.model';
 
 
 @Component({
@@ -12,15 +13,18 @@ import { Router } from '@angular/router';
 })
 export class FilmsListComponent {
 
-  public films: Film[];
+  films: Film[];
+  pagination: Pagination;
+  filmParams: FilmParams;
+  film2: Film;
 
   constructor(private filmsService: FilmsService, private router: Router) {
-    
+    this.filmParams = new FilmParams(this.film2);
   }
 
-  getFilms() {
+/*  getFilms() {
     this.filmsService.getFilms().subscribe(p => this.films = p);
-  }
+  }*/
 
   ngOnInit() {
     this.getFilms();
@@ -34,5 +38,22 @@ export class FilmsListComponent {
     this.filmsService.delete(`api/film/${film.id}`).subscribe(() => {
       this.getFilms();
     });
+  }
+
+   getFilms() {
+    this.filmsService.getFilms(this.filmParams).subscribe(response => {
+      this.films = response.result;
+      this.pagination = response.pagination;
+    })
+   }
+
+  resetFilters() {
+    this.filmParams = new FilmParams(this.film2);
+    this.getFilms();
+  }
+
+  pageChanged(event: any) {
+    this.filmParams.pageNumber = event.page;
+    this.getFilms();
   }
 }
