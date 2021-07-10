@@ -29,7 +29,6 @@ export class EditFilmPage implements OnInit {
       .subscribe(
         data => {
           this.film = data;
-          console.log(data);
         },
         error => {
           console.log(error);

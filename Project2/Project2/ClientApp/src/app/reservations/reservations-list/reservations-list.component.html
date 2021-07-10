@@ -35,8 +35,6 @@
 
 <h1 id="tableLabel">Reservations</h1>
 
-<p>This component lists reservations.</p>
-
 <p *ngIf="!reservationsList"><em>Loading...</em></p>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="reservationsList">
@@ -48,8 +46,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let reservation of reservationsList | keyvalue; let i = index">
-      <td></td>
+    <tr *ngFor="let reservation of reservationsList; let i = index">
+      <td>{{ i + 1 }}</td>
       <td>
         <table>
           <tr *ngFor="let film of reservation.films">
@@ -59,7 +57,7 @@
           </tr>
         </table>
       </td>
-      <td>{{reservation.value}}</td><!--arata formatare diferita, dar da eroare in consola-->
+      <td>{{reservation.reservationDateTime}}</td><!--arata formatare diferita, dar da eroare in consola-->
     </tr>
   </tbody>
 </table>

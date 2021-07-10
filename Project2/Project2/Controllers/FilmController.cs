@@ -85,22 +85,6 @@ namespace Project2.Controllers
         [HttpGet("{id}/Comments")]
         public ActionResult<IEnumerable<FilmWithCommentViewModel>> GetCommentsForFilm(int id)
         {
-            /*var query_v1 = _context.Comments.Where(c => c.Film.Id == id)
-                .Include(c => c.Film)
-                .Select(c => new FilmWithCommentViewModel
-                {
-                    Id = c.Film.Id,
-                    Title = c.Film.Title,
-                    Description = c.Film.Description,
-                    Rating = c.Film.Rating,
-                    Watched = c.Film.Watched,
-                    Comments = c.Film.Comments.Select(fc => new CommentViewModel
-                    {
-                        Id = fc.Id,
-                        Text = fc.Text,
-                        Important = fc.Important
-                    })
-                });*/
             
             var query_v2 = _context.Films
                 .Where(f => f.Id == id)
@@ -272,13 +256,6 @@ namespace Project2.Controllers
             _context.Entry(film).State = EntityState.Modified;
             _context.SaveChanges();
 
-            /*comment.Film = _context.Films.Find(id);
-            if(comment.Film == null)
-            {
-                return NotFound();
-            }
-            _context.Comments.Add(comment);
-            _context.SaveChanges();*/
             return Ok();
         }
 

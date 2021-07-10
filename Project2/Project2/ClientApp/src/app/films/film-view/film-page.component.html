@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row">
-    <div class="col-10">
+    <div class="col-8">
       <div class="m-4">
         <div class="media p-4">
           <img class="align-self-center mr-3" src="https://images.pexels.com/photos/4652275/pexels-photo-4652275.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" style="width:30%;" alt="Film photo">
-          <div class="media-body" style="background-color: #00ffff">
+          <div class="media-body">
             <h4 class="mt-0">{{film.title}}</h4>
-            <span>{{film.director}} </span><span>{{film.genre}} - </span><span>{{film.yearOfRelease}}</span>
-            <p class="mb-0">{{film.description}}</p>
+            <span>{{film.director}} </span><span style="font-style: italic">{{film.genre}} - </span><span>{{film.yearOfRelease}}</span>
+            <p class="mb-0 pt-4">{{film.description}}</p>
           </div>
         </div>
       </div>
@@ -25,10 +25,10 @@
           </button>
         </div>
         <div class="modal-body">
-          <form style="width: 40%">
+          <form style="width: 100%">
             <div class="form-group">
-              <label>Title</label>
-              <input class="form-control" type="text" [(ngModel)]="newComment.text" name="text">
+              <label></label>
+              <input class="form-control" style="height: 6em" type="text" [(ngModel)]="newComment.text" name="text">
             </div>
           </form>
           <div class="col text-center">
@@ -39,7 +39,7 @@
 
       <div *ngFor="let comment of filmWithComments[0]?.comments">
         <div class="media p-4">
-          <div class="media-body" style="background-color: #00ffff">
+          <div class="media-body border">
             <p class="mt-0">{{comment.text}}</p>
           </div>
         </div>

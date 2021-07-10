@@ -13,8 +13,7 @@ import { map } from "rxjs/operators";
 })
 export class ReservationsListComponent {
 
-  //reservations: Reservation[];
-  reservationsList: Observable<any>;
+  reservationsList: any;
 
   constructor(private reservationsService: ReservationsService) {
 
@@ -24,7 +23,6 @@ export class ReservationsListComponent {
     return this.reservationsService.get('api/reservation').subscribe(
       r => {
         this.reservationsList = r;
-        console.log(r);
       }, error => {
         console.log(error);
       })
