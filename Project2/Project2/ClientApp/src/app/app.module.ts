@@ -49,9 +49,9 @@ import { ReservationsService } from './reservations/reservations.service';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-      { path: 'films', component: FilmsListComponent },
-      { path: 'films/add', component: FilmAddComponent },
-      { path: 'films/:id', component: EditFilmPage },
+      { path: 'films', component: FilmsListComponent, canActivate: [AuthorizeGuard] },
+      { path: 'films/add', component: FilmAddComponent, canActivate: [AuthorizeGuard] },
+      { path: 'films/:id', component: EditFilmPage, canActivate: [AuthorizeGuard] },
       { path: 'explore', component: FilmsListViewComponent },
       { path: 'film-with-comments/:id/:title', component: FilmPageComponent },
       { path: 'reservations', component: ReservationsListComponent, canActivate: [AuthorizeGuard] }

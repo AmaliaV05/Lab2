@@ -1,38 +1,3 @@
-<!--<h1 id="tableLabel">My Reservations</h1>
-
-
-
-<p *ngIf="!reservationsList"><em>Loading...</em></p>
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="reservationsList">
-  <thead>
-    <tr>
-      <th>Reservation no.</th>
-      <th>Films</th>
-      <th>Reservation date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let reservation of reservationsList; let i = index"
-        [reservation]="reservation"
-        [index]="i">
-      <td>1</td>
-      <td>
-        <table>
-          <tr *ngFor="let film of reservation[i].films">
-            <td>{{ film.title }}</td>
-            <td>{{ film.dateAdded | date:'medium'}}</td>
-            <td>{{ film.genre}}</td>
-          </tr>
-        </table>
-      </td>
-      <td>{{reservation[i].reservationDateTime}}</td>-->
-<!--arata formatare diferita, dar da eroare in consola-->
-<!--</tr>
-  </tbody>
-</table>-->
-
-
 <h1 id="tableLabel">Reservations</h1>
 
 <p *ngIf="!reservationsList"><em>Loading...</em></p>
@@ -57,7 +22,7 @@
           </tr>
         </table>
       </td>
-      <td>{{reservation.reservationDateTime}}</td><!--arata formatare diferita, dar da eroare in consola-->
+      <td>{{reservation.reservationDateTime | date:'medium'}}</td>
     </tr>
   </tbody>
 </table>

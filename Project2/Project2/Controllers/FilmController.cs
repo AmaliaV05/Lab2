@@ -60,6 +60,7 @@ namespace Project2.Controllers
         /// <param name="id"></param>
         /// <returns>Returns film by id</returns>
         // GET: api/Film/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<FilmViewModel>> GetFilm(int id)
         {
