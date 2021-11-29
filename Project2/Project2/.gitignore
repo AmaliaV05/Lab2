@@ -229,3 +229,11 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+
+
+**/appsettings.Development.json
+
+Tests/
+async-await2/
+
+.vs/Project2

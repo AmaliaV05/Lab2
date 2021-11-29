@@ -24,6 +24,7 @@ import { FilmPageComponent } from './films/film-view/film-page.component';
 import { FilmsService } from './films/films.service';
 import { EditFilmPage } from './films/film-edit/film-edit.component';
 import { ReservationsService } from './reservations/reservations.service';
+import { FilterPipe } from './films/film-filter/film-filter.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ReservationsService } from './reservations/reservations.service';
     FilmAddComponent,
     FilmsListViewComponent,
     FilmPageComponent,
-    EditFilmPage
+    EditFilmPage,
+    FilterPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

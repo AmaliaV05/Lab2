@@ -19,6 +19,7 @@
             <td>{{ film.title }}</td>
             <td>{{ film.dateAdded | date:'medium'}}</td>
             <td>{{ film.genre}}</td>
+            <td><img id="delete-icon" style="width: 1.7em; cursor: pointer;" src="https://icon-library.com/images/delete-icon-transparent-background/delete-icon-transparent-background-12.jpg" alt="Delete icon" (click)="deleteFilmReservation()" /></td>
           </tr>
         </table>
       </td>

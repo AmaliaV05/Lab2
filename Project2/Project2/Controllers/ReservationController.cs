@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using Project2.Data;
 using Project2.Models;
 using Project2.ViewModels.Reservations;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -43,7 +42,7 @@ namespace Project2.Controllers
         {
             var user = await _userManager.FindByEmailAsync(User.FindFirst(ClaimTypes.Email).Value);
 
-            List<Film> reservedFilms = new List<Film>();
+            List<Film> reservedFilms = new();
             newReservationRequest.ReservedFilmsIds.ForEach(fid =>
             {
                 var filmWithId = _context.Films.Find(fid);

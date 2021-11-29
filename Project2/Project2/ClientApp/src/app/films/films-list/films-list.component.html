@@ -37,7 +37,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let film of films">
+    <tr *ngFor="let film of films | searchFilter: filmParams.titleFilter">
       <td>{{ film.id }}</td>
       <td>{{ film.title }}</td>
       <td>{{ film.description }}</td>

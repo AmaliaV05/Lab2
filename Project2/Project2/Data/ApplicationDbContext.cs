@@ -3,10 +3,6 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Project2.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Project2.Data
 {
@@ -21,6 +17,7 @@ namespace Project2.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<UserRole> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,6 +27,10 @@ namespace Project2.Data
                 .HasIndex(p => p.Title)
                 .IsUnique()
                 .HasFilter(null);
+
+            modelBuilder.Entity<UserRole>()
+               .HasData(new UserRole { Name = UserRole.ROLE_USER, NormalizedName = UserRole.ROLE_USER.ToUpper() },
+                        new UserRole { Name = UserRole.ROLE_ADMIN, NormalizedName = UserRole.ROLE_ADMIN.ToUpper() });
         }
     }
 }
