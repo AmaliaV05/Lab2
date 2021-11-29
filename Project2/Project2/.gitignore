@@ -222,7 +222,7 @@ FakesAssemblies/
 **/*.DesktopClient/ModelManifest.xml
 **/*.Server/GeneratedArtifacts
 **/*.Server/ModelManifest.xml
-_Pvt_Extensions
+_Pvt_Extensionscd 
 
 # Paket dependency manager
 .paket/paket.exe
@@ -232,8 +232,3 @@ _Pvt_Extensions
 
 
 **/appsettings.Development.json
-
-Tests/
-async-await2/
-
-.vs/Project2

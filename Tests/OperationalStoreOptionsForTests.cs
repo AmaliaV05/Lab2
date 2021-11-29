@@ -1,5 +1,4 @@
-﻿using System;
-using IdentityServer4.EntityFramework.Options;
+﻿using IdentityServer4.EntityFramework.Options;
 using Microsoft.Extensions.Options;
 
 namespace Tests
